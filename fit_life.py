@@ -47,17 +47,15 @@ def get_data():
 
 def calculation_bmi(user_weight, user_height):
     """Рассчитываем ИМТ"""
-    bmi = round(user_weight / (user_height ** 2), 1)
-    return bmi
+    return round(user_weight / (user_height ** 2), 1)
 
 
 def calculation_water(user_weight):
     """Рассчитываем объем воды в литрах"""
     WATER_PER_KG = 30
     VOLUME_WATER = 1000
-
-    water_l = round(user_weight * WATER_PER_KG / VOLUME_WATER, 1)
-    return water_l
+    round(user_weight * WATER_PER_KG / VOLUME_WATER, 1)
+    return round(user_weight * WATER_PER_KG / VOLUME_WATER, 1)
 
 
 def get_age_string(user_age):
