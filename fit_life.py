@@ -1,47 +1,66 @@
 # Проект FitLife - MVP версия 1.0
 
+# Объявляю константы
+ERROR_AGE = "Ошибка: некорректное значение возраста!"
+ERROR_WEIGHT = "Ошибка: некорректное значение веса!"
+ERROR_HEIGHT = "Ошибка: некорректное значение роста!"
+WATER_PER_KG = 30
+VOLUME_WATER = 1000
+MIN_AGE = 0  # минимальный возраст
+MAX_AGE = 122  # максимальный возраст
+MIN_WEIGHT = 0  # минимальный вес в кг
+MAX_WEIGHT = 700  # максимальный вес в кг
+MIN_HEIGHT = 0  # минимальный рост в метрах
+MAX_HEIGHT = 3  # максимальный рост в метрах
+
+
 def acquaintance():
     """Знакомимся с пользователем и узнаем возраст"""
-    ERROR_AGE = "Ошибка: некорректное значение возраста!"
-    age = None  # заранее объявляю переменную
-
+    print("Здравствуйте! Я FitLife MVP - ваш личный фитнес-трекер.\n"
+          "Познакомимся?")
     # Получаем от пользователя имя
-    name = input("Здравствуйте! Я FitLife MVP - ваш личный фитнес-трекер.\n"
-                 "Познакомимся?\n"
-                 "Введите Ваше имя: ")
-    if not name.strip():
-        print("Ошибка: имя не может быть пустым!")
+    while True:
+        name = input("Введите Ваше имя: ")
+        if not name.strip():
+            print("Ошибка: имя не может быть пустым!")
+            continue
+        break
     # Получаем от пользователя возраст
-    try:
-        age = int(input("Введите Ваш возраст (полных лет): "))
-        if (age < 0) or (age > 122):
+    while True:
+        try:
+            age = int(input("Введите Ваш возраст (полных лет): "))
+            if (age <= MIN_AGE) or (age > MAX_AGE):
+                print(ERROR_AGE)
+                continue
+            break
+        except (ValueError, TypeError):
             print(ERROR_AGE)
-    except (ValueError, TypeError):
-        print(ERROR_AGE)
     return name, age
 
 
 def get_data():
     """Спрашиваем вес и рост"""
-    ERROR_WEIGHT = "Ошибка: некорректное значение веса!"
-    ERROR_HEIGHT = "Ошибка: некорректное значение роста!"
-    weight = None  # заранее объявляю переменную
-    height = None  # заранее объявляю переменную
-
     # Получаем от пользователя вес
-    try:
-        weight = float(input("Укажите ваш вес в кг (например, 65.5): "))
-        if (weight < 0) or (weight > 700):
+    while True:
+        try:
+            weight = float(input("Укажите ваш вес в кг (например, 65.5): "))
+            if (weight <= MIN_WEIGHT) or (weight > MAX_WEIGHT):
+                print(ERROR_WEIGHT)
+                continue
+            break
+        except (ValueError, TypeError):
             print(ERROR_WEIGHT)
-    except (ValueError, TypeError):
-        print(ERROR_WEIGHT)
     # Получаем от пользователя рост
-    try:
-        height = float(input("Укажите ваш рост в метрах (например, 1.75): "))
-        if (height < 0) or (height > 3):
+    while True:
+        try:
+            height = float(input("Укажите ваш рост в метрах "
+                                 "(например, 1.75): "))
+            if (height <= MIN_HEIGHT) or (height > MAX_HEIGHT):
+                print(ERROR_HEIGHT)
+                continue
+            break
+        except (ValueError, TypeError):
             print(ERROR_HEIGHT)
-    except (ValueError, TypeError):
-        print(ERROR_HEIGHT)
     return weight, height
 
 
@@ -52,9 +71,6 @@ def calculation_bmi(user_weight, user_height):
 
 def calculation_water(user_weight):
     """Рассчитываем объем воды в литрах"""
-    WATER_PER_KG = 30
-    VOLUME_WATER = 1000
-    round(user_weight * WATER_PER_KG / VOLUME_WATER, 1)
     return round(user_weight * WATER_PER_KG / VOLUME_WATER, 1)
 
 
